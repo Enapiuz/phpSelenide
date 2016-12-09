@@ -697,11 +697,11 @@ class SelenideTest extends PHPUnit_Framework_TestCase
     {
         $collection = self::$wd->findAll(By::css('.collection-element'));
 
-        $this->assertEquals('0', $collection[0]);
-        $this->assertEquals('1', $collection[1]);
-        $this->assertEquals('2', $collection[2]);
-        $this->assertEquals('3', $collection[3]);
-        $this->assertEquals('4', $collection[4]);
+        $this->assertEquals('0', $collection[0]->text());
+        $this->assertEquals('1', $collection[1]->text());
+        $this->assertEquals('2', $collection[2]->text());
+        $this->assertEquals('3', $collection[3]->text());
+        $this->assertEquals('4', $collection[4]->text());
 
         $this->assertFalse($collection->offsetExists(5));
     }
