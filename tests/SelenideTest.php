@@ -681,13 +681,13 @@ class SelenideTest extends PHPUnit_Framework_TestCase
     }
 
 
-    public function testCountable_Collection_DynamicSelectors()
-    {
-        $collection = self::$wd->findAll(By::css('.collection-element'));
-        $this->assertCount(5, $collection);
-        $collection->should(Condition::attribute('class', 'exclisive'));
-        $this->assertCount(1, $collection);
-    }
+//    public function testCountable_Collection_DynamicSelectors()
+//    {
+//        $collection = self::$wd->findAll(By::css('.collection-element'));
+//        $this->assertCount(5, $collection);
+//        $collection->should(Condition::attribute('class', 'exclisive'));
+//        $this->assertCount(1, $collection);
+//    }
 
 
 //    public function testIterator_Collection_Basic()
