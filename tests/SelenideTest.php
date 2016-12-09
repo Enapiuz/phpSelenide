@@ -673,4 +673,47 @@ class SelenideTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Selenide\SelenideElement', $element, 'Must be return SelenideElement');
     }
 
+
+    public function testCountable_Collection()
+    {
+        $collection = self::$wd->findAll(By::css('.collection-element'));
+        $this->assertCount(5, $collection);
+    }
+
+
+    public function testIterator_Collection()
+    {
+        $collection = self::$wd->findAll(By::css('.collection-element'));
+        $this->assertEquals('0', $collection->current()->text());
+        $collection->next();
+        $this->assertEquals('1', $collection->current()->text());
+        $this->assertEquals(1, $collection->key());
+        $collection->rewind();
+        $this->assertEquals('0', $collection->current()->text());
+    }
+
+
+    public function testArrayAccess_Collection()
+    {
+        $collection = self::$wd->findAll(By::css('.collection-element'));
+
+        $this->assertEquals('0', $collection[0]);
+        $this->assertEquals('1', $collection[1]);
+        $this->assertEquals('2', $collection[2]);
+        $this->assertEquals('3', $collection[3]);
+        $this->assertEquals('4', $collection[4]);
+
+        $this->assertFalse($collection->offsetExists(5));
+    }
+
+
+    public function testArrayAccess_Collection_Foreach()
+    {
+        $collection = self::$wd->findAll(By::css('.collection-element'));
+        $result = '';
+        foreach ($collection as $element) {
+            $result .= $element->text();
+        }
+        $this->assertEquals('01234', $result);
+    }
 }
