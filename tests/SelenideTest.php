@@ -681,19 +681,37 @@ class SelenideTest extends PHPUnit_Framework_TestCase
     }
 
 
-    public function testIterator_Collection()
+    public function testCountable_Collection_DynamicSelectors()
     {
         $collection = self::$wd->findAll(By::css('.collection-element'));
-        $this->assertEquals('0', $collection->current()->text());
-        $collection->next();
-        $this->assertEquals('1', $collection->current()->text());
-        $this->assertEquals(1, $collection->key());
-        $collection->rewind();
-        $this->assertEquals('0', $collection->current()->text());
+        $this->assertCount(5, $collection);
+        $collection->findAll(By::css('.exclusive'));
+        $this->assertCount(1, $collection);
     }
 
 
-    public function testArrayAccess_Collection()
+    public function testIterator_Collection_Basic()
+    {
+        $collection = self::$wd->findAll(By::css('.collection-element'));
+
+        $element = current($collection);
+        $this->assertEquals('0', $element->text());
+        next($collection);
+        $element = current($collection);
+        $this->assertEquals('1', $element->text());
+        end($collection);
+        $element = current($collection);
+        $this->assertEquals('4', $element->text());
+        prev($collection);
+        $element = current($collection);
+        $this->assertEquals('3', $element->text());
+        reset($collection);
+        $element = current($collection);
+        $this->assertEquals('0', $element->text());
+    }
+
+
+    public function testArrayAccess_Collection_Basic()
     {
         $collection = self::$wd->findAll(By::css('.collection-element'));
 
